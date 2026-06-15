@@ -1365,89 +1365,298 @@ input, select, textarea { font-family: inherit; }
 }
 
 /* ----------------------------------------------------------------
-   13. FLOATING WHATSAPP BUTTON
+   13. WHATSAPP CHAT WIDGET
 ---------------------------------------------------------------- */
-.fab-whatsapp {
+.wa-widget {
   position: fixed;
   bottom: 1.75rem;
   right: 1.75rem;
-  z-index: 999;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.875rem;
+}
+
+/* ---- Card de chat ---- */
+.wa-card {
+  width: 300px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 48px rgba(0,0,0,0.22);
+  overflow: hidden;
+  transform-origin: bottom right;
+  transform: scale(0.85) translateY(12px);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.32s cubic-bezier(0.34,1.56,0.64,1), opacity 0.28s ease;
+  will-change: transform, opacity;
+}
+
+.wa-card.open {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Header do card */
+.wa-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem 1rem;
+  background: #075e54;
+}
+
+.wa-card-avatar {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.wa-card-avatar img,
+.wa-card-avatar-fallback {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+
+.wa-card-avatar-fallback {
+  display: none;
+  background: #25d366;
+  color: #fff;
+  font-size: 1.25rem;
+  font-weight: 700;
+  align-items: center;
+  justify-content: center;
+}
+
+.wa-online-dot {
+  position: absolute;
+  bottom: 1px;
+  right: 1px;
+  width: 11px;
+  height: 11px;
+  background: #25d366;
+  border: 2px solid #075e54;
+  border-radius: 50%;
+}
+
+.wa-card-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.wa-card-info strong {
+  color: #fff;
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.wa-card-info span {
+  color: rgba(255,255,255,0.75);
+  font-size: var(--fs-xs);
+  line-height: 1.2;
+}
+
+.wa-card-info em {
+  font-style: normal;
+  color: #25d366;
+  font-weight: 600;
+}
+
+.wa-card-close {
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.7);
+  cursor: pointer;
+  font-size: 1.1rem;
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: color 0.2s, background 0.2s;
+  flex-shrink: 0;
+}
+
+.wa-card-close:hover {
+  color: #fff;
+  background: rgba(255,255,255,0.12);
+}
+
+/* Corpo com as mensagens */
+.wa-card-body {
+  padding: 0.875rem;
+  background: #e5ddd5;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+.wa-msg-bubble {
+  background: #fff;
+  border-radius: 0 10px 10px 10px;
+  padding: 0.5rem 0.75rem 0.375rem;
+  max-width: 88%;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+  animation: waMsgPop 0.3s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+
+.wa-msg-bubble--delay {
+  animation-delay: 0.2s;
+  opacity: 0;
+  animation-fill-mode: forwards;
+}
+
+@keyframes waMsgPop {
+  from { opacity: 0; transform: scale(0.8) translateY(6px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.wa-msg-bubble p {
+  margin: 0;
+  font-size: var(--fs-sm);
+  color: #303030;
+  line-height: 1.45;
+}
+
+.wa-msg-time {
+  display: block;
+  text-align: right;
+  font-size: 0.68rem;
+  color: #8a9aa1;
+  margin-top: 0.2rem;
+}
+
+/* CTA do card */
+.wa-card-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1rem;
+  background: #25d366;
+  color: #fff;
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: background 0.2s, filter 0.2s;
+}
+
+.wa-card-cta:hover {
+  background: #1fba59;
+  filter: brightness(1.05);
+}
+
+.wa-card-cta i {
+  font-size: 1.2rem;
+}
+
+/* ---- FAB (botão flutuante) ---- */
+.wa-fab {
+  position: relative;
   width: 60px;
   height: 60px;
+  border-radius: 50%;
   background: #25d366;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 32px rgba(37,211,102,0.5);
+  transition: transform 0.3s var(--ease), box-shadow 0.3s;
+  color: #fff;
+  font-size: 1.75rem;
+  flex-shrink: 0;
+}
+
+.wa-fab:hover {
+  transform: scale(1.1) translateY(-2px);
+  box-shadow: 0 10px 40px rgba(37,211,102,0.65);
+}
+
+.wa-fab:focus-visible {
+  outline: 3px solid #25d366;
+  outline-offset: 3px;
+}
+
+/* Ícones abrir/fechar */
+.wa-fab-icon {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.25s, transform 0.25s;
+}
+
+.wa-fab-icon--open  { opacity: 1; transform: scale(1) rotate(0deg); }
+.wa-fab-icon--close { opacity: 0; transform: scale(0.5) rotate(90deg); }
+
+.wa-fab[aria-expanded="true"] .wa-fab-icon--open  { opacity: 0; transform: scale(0.5) rotate(-90deg); }
+.wa-fab[aria-expanded="true"] .wa-fab-icon--close { opacity: 1; transform: scale(1) rotate(0deg); }
+
+/* Anéis de pulso */
+.wa-fab-ring {
+  position: absolute;
+  inset: -5px;
+  border-radius: 50%;
+  border: 2.5px solid rgba(37,211,102,0.55);
+  animation: waRingPulse 2.2s ease-out infinite;
+  pointer-events: none;
+}
+
+.wa-fab-ring--2 {
+  inset: -10px;
+  border-color: rgba(37,211,102,0.28);
+  animation-delay: 0.45s;
+}
+
+@keyframes waRingPulse {
+  0%   { transform: scale(1); opacity: 0.8; }
+  75%  { transform: scale(1.45); opacity: 0; }
+  100% { transform: scale(1.45); opacity: 0; }
+}
+
+.wa-fab[aria-expanded="true"] .wa-fab-ring { display: none; }
+
+/* Bolinha de notificação */
+.wa-fab-badge {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  background: #c8102e;
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 800;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--white);
-  font-size: 1.7rem;
-  box-shadow: 0 6px 32px rgba(37,211,102,0.45);
-  transition: transform 0.3s var(--ease), box-shadow 0.3s;
+  border: 2px solid #fff;
+  animation: badgeBounce 0.5s cubic-bezier(0.34,1.56,0.64,1) 1.5s both;
+  transition: opacity 0.2s, transform 0.2s;
 }
 
-.fab-whatsapp i { position: relative; z-index: 2; }
-
-.fab-whatsapp:hover {
-  transform: scale(1.1) translateY(-2px);
-  box-shadow: 0 10px 40px rgba(37,211,102,0.6);
+@keyframes badgeBounce {
+  from { transform: scale(0); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
 }
 
-.fab-tooltip {
-  position: absolute;
-  right: calc(100% + 0.75rem);
-  background: var(--gray-900);
-  color: var(--white);
-  font-size: var(--fs-xs);
-  font-weight: 600;
-  padding: 0.375rem 0.875rem;
-  border-radius: 100px;
-  white-space: nowrap;
-  pointer-events: none;
+.wa-fab-badge.hidden {
   opacity: 0;
-  transform: translateX(6px);
-  transition: opacity 0.25s, transform 0.25s;
-}
-
-.fab-tooltip::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  right: -6px;
-  transform: translateY(-50%);
-  border: 6px solid transparent;
-  border-left-color: var(--gray-900);
-  border-right: 0;
-}
-
-.fab-whatsapp:hover .fab-tooltip,
-.fab-whatsapp:focus-visible .fab-tooltip {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-/* Pulse rings */
-.fab-pulse-ring {
-  position: absolute;
-  inset: -4px;
-  border-radius: 50%;
-  border: 2px solid rgba(37,211,102,0.6);
-  animation: fabPulse 2s ease-out infinite;
+  transform: scale(0);
   pointer-events: none;
-}
-
-.fab-pulse-ring::before {
-  content: '';
-  position: absolute;
-  inset: -8px;
-  border-radius: 50%;
-  border: 2px solid rgba(37,211,102,0.3);
-  animation: fabPulse 2s ease-out infinite 0.4s;
-}
-
-@keyframes fabPulse {
-  0%   { transform: scale(1); opacity: 0.7; }
-  80%  { transform: scale(1.55); opacity: 0; }
-  100% { transform: scale(1.55); opacity: 0; }
 }
 
 /* ----------------------------------------------------------------
@@ -1532,7 +1741,9 @@ input, select, textarea { font-family: inherit; }
     grid-template-columns: 1fr;
   }
 
-  .fab-whatsapp { bottom: 1.25rem; right: 1.25rem; width: 54px; height: 54px; }
+  .wa-widget { bottom: 1.25rem; right: 1.25rem; }
+  .wa-fab { width: 54px; height: 54px; font-size: 1.55rem; }
+  .wa-card { width: 272px; }
 }
 
 @media (max-width: 480px) {
@@ -1631,6 +1842,22 @@ input, select, textarea { font-family: inherit; }
   white-space: nowrap;
   letter-spacing: 0.02em;
   text-transform: uppercase;
+}
+
+/* Cards com logo clara sobre fundo escuro (ex: CNVW, Renault) */
+.brand-logo--dark {
+  background: #111;
+  border-color: rgba(255,255,255,0.1);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.35);
+}
+
+.brand-logo--dark .brand-name {
+  color: rgba(255,255,255,0.65);
+}
+
+.brand-logo--dark:hover {
+  border-color: rgba(255,255,255,0.22);
+  box-shadow: 0 14px 36px rgba(0,0,0,0.45);
 }
 
 .adm-disclaimer {

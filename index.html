@@ -153,25 +153,25 @@
             </div>
             <div class="brand-item">
               <div class="brand-logo">
-                <img src="img.profi/portoseguro.png" alt="Porto" class="brand-img" loading="lazy" />
+                <img src="img.profi/portoseguro.png" alt="Porto Seguro" class="brand-img" loading="lazy" />
                 <span class="brand-name">Porto</span>
               </div>
             </div>
             <div class="brand-item">
-              <div class="brand-logo">
+              <div class="brand-logo brand-logo--dark">
                 <img src="img.profi/volkswagem.png" alt="Consórcio Volkswagen" class="brand-img" loading="lazy" />
                 <span class="brand-name">CNVW</span>
               </div>
             </div>
             <div class="brand-item">
-              <div class="brand-logo">
+              <div class="brand-logo brand-logo--dark">
                 <img src="img.profi/download.png" alt="Renault" class="brand-img" loading="lazy" />
                 <span class="brand-name">Renault</span>
               </div>
             </div>
             <div class="brand-item">
               <div class="brand-logo">
-                <img src="img.profi/itau.jpg" alt="Itaú" class="brand-img" loading="lazy" />
+                <img src="img.profi/itau-logo.svg" alt="Itaú" class="brand-img" loading="lazy" />
                 <span class="brand-name">Itaú</span>
               </div>
             </div>
@@ -207,20 +207,20 @@
               </div>
             </div>
             <div class="brand-item" aria-hidden="true">
-              <div class="brand-logo">
+              <div class="brand-logo brand-logo--dark">
                 <img src="img.profi/volkswagem.png" alt="" class="brand-img" />
                 <span class="brand-name">CNVW</span>
               </div>
             </div>
             <div class="brand-item" aria-hidden="true">
-              <div class="brand-logo">
+              <div class="brand-logo brand-logo--dark">
                 <img src="img.profi/download.png" alt="" class="brand-img" />
                 <span class="brand-name">Renault</span>
               </div>
             </div>
             <div class="brand-item" aria-hidden="true">
               <div class="brand-logo">
-                <img src="img.profi/itau.jpg" alt="" class="brand-img" />
+                <img src="img.profi/itau-logo.svg" alt="" class="brand-img" />
                 <span class="brand-name">Itaú</span>
               </div>
             </div>
@@ -1170,18 +1170,73 @@
     </div>
   </footer>
 
-  <!-- WhatsApp Flutuante -->
-  <a
-    href="https://wa.me/5527995709892?text=Ol%C3%A1%21+Vim+pelo+site+e+gostaria+de+fazer+uma+simula%C3%A7%C3%A3o+gratuita."
-    class="fab-whatsapp"
-    target="_blank"
-    rel="noopener noreferrer"
-    aria-label="Abrir conversa no WhatsApp"
-  >
-    <i class="ph ph-whatsapp-logo" aria-hidden="true"></i>
-    <span class="fab-tooltip">Fale conosco!</span>
-    <span class="fab-pulse-ring" aria-hidden="true"></span>
-  </a>
+  <!-- WIDGET WHATSAPP CHAT -->
+  <div class="wa-widget" id="wa-widget" aria-live="polite">
+
+    <!-- Card de conversa -->
+    <div class="wa-card" id="wa-card" aria-hidden="true" role="dialog" aria-label="Chat com Honório">
+      <div class="wa-card-header">
+        <div class="wa-card-avatar">
+          <img
+            src="img.profi/INSTAGRAM-34.jpg"
+            alt="Honório"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+          />
+          <span class="wa-card-avatar-fallback" aria-hidden="true">H</span>
+          <span class="wa-online-dot" aria-hidden="true"></span>
+        </div>
+        <div class="wa-card-info">
+          <strong>Honório</strong>
+          <span>Consultor · <em>Online agora</em></span>
+        </div>
+        <button class="wa-card-close" id="wa-card-close" aria-label="Fechar chat">
+          <i class="ph ph-x" aria-hidden="true"></i>
+        </button>
+      </div>
+
+      <div class="wa-card-body">
+        <div class="wa-msg-bubble">
+          <p>👋 Olá! Posso te ajudar a encontrar o melhor consórcio para o seu perfil.</p>
+          <span class="wa-msg-time">Agora</span>
+        </div>
+        <div class="wa-msg-bubble wa-msg-bubble--delay">
+          <p>Clique abaixo para iniciarmos uma simulação gratuita 😊</p>
+          <span class="wa-msg-time">Agora</span>
+        </div>
+      </div>
+
+      <a
+        href="https://wa.me/5527995709892?text=Ol%C3%A1%21+Vim+pelo+site+e+gostaria+de+fazer+uma+simula%C3%A7%C3%A3o+gratuita."
+        class="wa-card-cta"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Abrir conversa no WhatsApp"
+      >
+        <i class="ph ph-whatsapp-logo" aria-hidden="true"></i>
+        Iniciar conversa
+      </a>
+    </div>
+
+    <!-- Botão FAB -->
+    <button
+      class="wa-fab"
+      id="wa-fab"
+      aria-label="Abrir chat do WhatsApp"
+      aria-expanded="false"
+      aria-controls="wa-card"
+    >
+      <span class="wa-fab-icon wa-fab-icon--open">
+        <i class="ph ph-whatsapp-logo" aria-hidden="true"></i>
+      </span>
+      <span class="wa-fab-icon wa-fab-icon--close">
+        <i class="ph ph-x" aria-hidden="true"></i>
+      </span>
+      <span class="wa-fab-ring" aria-hidden="true"></span>
+      <span class="wa-fab-ring wa-fab-ring--2" aria-hidden="true"></span>
+      <span class="wa-fab-badge" aria-hidden="true">1</span>
+    </button>
+
+  </div>
 
   <script src="script.js"></script>
 </body>

@@ -319,16 +319,62 @@ function initWhatsAppLinks() {
     if (link.closest('#lead-form') || link.id === 'wa-success-link') return;
 
     link.addEventListener('click', () => {
-      const source = link.classList.contains('fab-whatsapp') ? 'fab'
-        : link.closest('.hero')                               ? 'hero'
-        : link.closest('.final-cta')                         ? 'final_cta'
-        : link.closest('.mod-card')                          ? 'modal_card'
-        : link.closest('.site-footer')                       ? 'footer'
-        : link.closest('.nav-menu')                          ? 'nav'
+      const source = link.classList.contains('wa-card-cta') ? 'widget'
+        : link.closest('.hero')                              ? 'hero'
+        : link.closest('.final-cta')                        ? 'final_cta'
+        : link.closest('.mod-card')                         ? 'modal_card'
+        : link.closest('.site-footer')                      ? 'footer'
+        : link.closest('.nav-menu')                         ? 'nav'
         : 'other';
       trackWhatsAppClick(source);
     });
   });
+}
+
+/* ================================================================
+   8b. WHATSAPP WIDGET — chat card flutuante
+================================================================ */
+function initWhatsAppWidget() {
+  const widget  = $('#wa-widget');
+  const card    = $('#wa-card');
+  const fab     = $('#wa-fab');
+  const closeBtn = $('#wa-card-close');
+  const badge   = widget?.querySelector('.wa-fab-badge');
+  if (!widget || !card || !fab) return;
+
+  let isOpen = false;
+
+  function openCard() {
+    isOpen = true;
+    card.classList.add('open');
+    card.removeAttribute('aria-hidden');
+    fab.setAttribute('aria-expanded', 'true');
+    if (badge) badge.classList.add('hidden');
+  }
+
+  function closeCard() {
+    isOpen = false;
+    card.classList.remove('open');
+    card.setAttribute('aria-hidden', 'true');
+    fab.setAttribute('aria-expanded', 'false');
+  }
+
+  fab.addEventListener('click', () => isOpen ? closeCard() : openCard());
+  if (closeBtn) closeBtn.addEventListener('click', closeCard);
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && isOpen) closeCard();
+  });
+
+  /* Auto-abre uma vez após 4 s (só na primeira visita da sessão) */
+  if (!sessionStorage.getItem('wa_widget_shown')) {
+    setTimeout(() => {
+      if (!isOpen) {
+        openCard();
+        sessionStorage.setItem('wa_widget_shown', '1');
+      }
+    }, 4000);
+  }
 }
 
 /* ================================================================
@@ -399,6 +445,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initAccordion();
   initLeadForm();
   initWhatsAppLinks();
+  initWhatsAppWidget();
   initSmoothScroll();
   initFooterYear();
   initBrandsCarousel();

@@ -10,7 +10,7 @@
 ================================================================ */
 const CONFIG = {
   /* Número oficial do consultor — DDI + DDD + número */
-  whatsappNumber: '5527995709892',
+  whatsappNumber: '5527996454587',
 
   /* Threshold do Intersection Observer */
   revealThreshold: 0.15,

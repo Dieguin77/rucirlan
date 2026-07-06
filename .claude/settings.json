@@ -16,7 +16,19 @@
       "Bash(cd \"d:/rucirlan\" && sed -i 's/5527995709892/5527996454587/g' index.html script.js)",
       "WebFetch(domain:l.wl.co)",
       "WebFetch(domain:figueredocorretora.com.br)",
-      "Bash(cd \"d:/rucirlan\" && sed -i 's/5527996454587/5527996456687/g' index.html script.js && grep -c \"5527996456687\" index.html script.js)"
+      "Bash(cd \"d:/rucirlan\" && sed -i 's/5527996454587/5527996456687/g' index.html script.js && grep -c \"5527996456687\" index.html script.js)",
+      "Bash(vercel project *)",
+      "Bash(vercel inspect *)",
+      "Bash(find .github -type f)",
+      "Bash(find . -maxdepth 1 -iname \"CNAME\")",
+      "Bash(curl -s \"https://dieguin77.github.io/rucirlan/\")",
+      "Bash(curl -s -o /tmp/rucirlan_live.html -w \"HTTP_STATUS:%{http_code} SIZE:%{size_download}\\\\n\" \"https://dieguin77.github.io/rucirlan/\")",
+      "Read(//tmp/**)",
+      "Bash(curl -sI \"https://dieguin77.github.io/rucirlan/\")",
+      "Bash(curl -v -s -o /tmp/rucirlan_live.html -w \"HTTP_STATUS:%{http_code} SIZE:%{size_download}\\\\n\" \"https://dieguin77.github.io/rucirlan/\")",
+      "Bash(curl -s --ssl-no-revoke -o /tmp/rucirlan_live.html -w \"HTTP_STATUS:%{http_code} SIZE:%{size_download}\\\\n\" \"https://dieguin77.github.io/rucirlan/\")",
+      "Bash(gh run *)",
+      "WebFetch(domain:www.githubstatus.com)"
     ],
     "additionalDirectories": [
       "d:\\rucirlan"

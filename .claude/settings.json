@@ -13,7 +13,10 @@
       "Bash(timeout 60 bash -c ' *)",
       "Bash(git push *)",
       "Bash(git ls-tree *)",
-      "Bash(cd \"d:/rucirlan\" && sed -i 's/5527995709892/5527996454587/g' index.html script.js)"
+      "Bash(cd \"d:/rucirlan\" && sed -i 's/5527995709892/5527996454587/g' index.html script.js)",
+      "WebFetch(domain:l.wl.co)",
+      "WebFetch(domain:figueredocorretora.com.br)",
+      "Bash(cd \"d:/rucirlan\" && sed -i 's/5527996454587/5527996456687/g' index.html script.js && grep -c \"5527996456687\" index.html script.js)"
     ],
     "additionalDirectories": [
       "d:\\rucirlan"

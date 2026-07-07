@@ -1,5 +1,5 @@
 /* ================================================================
-   EMBRACON LANDING PAGE — style.css
+   EMBRACON LANDING PAGE - style.css
    Stack: CSS3 Puro | Glassmorphism | Dark Mode | Animações Scroll
    ================================================================ */
 
@@ -550,7 +550,7 @@ input, select, textarea { font-family: inherit; }
 .sobre-ctas { margin-top: 2rem; }
 
 /* ----------------------------------------------------------------
-   6. BENEFÍCIOS — GLASSMORPHISM GRID
+   6. BENEFÍCIOS - GLASSMORPHISM GRID
 ---------------------------------------------------------------- */
 .beneficios {
   padding-block: var(--section-py);
@@ -617,7 +617,7 @@ input, select, textarea { font-family: inherit; }
 }
 
 /* ----------------------------------------------------------------
-   7. COMO FUNCIONA — TIMELINE
+   7. COMO FUNCIONA - TIMELINE
 ---------------------------------------------------------------- */
 .como-funciona {
   padding-block: var(--section-py);
@@ -1011,7 +1011,7 @@ input, select, textarea { font-family: inherit; }
 
 .radio-option:hover .radio-face i { color: var(--red-primary); }
 
-/* Checked — selecionado */
+/* Checked - selecionado */
 .radio-option input[type="radio"]:checked ~ .radio-face {
   background: rgba(200,16,46,0.15);
   border-color: var(--red-primary);
@@ -1158,7 +1158,7 @@ input, select, textarea { font-family: inherit; }
 }
 
 /* ----------------------------------------------------------------
-   10. FAQ — ACCORDION
+   10. FAQ - ACCORDION
 ---------------------------------------------------------------- */
 .faq {
   padding-block: var(--section-py);
@@ -1326,6 +1326,49 @@ input, select, textarea { font-family: inherit; }
 }
 
 .footer-links a:hover { color: var(--white); }
+
+.footer-location-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 0.75rem;
+}
+
+.footer-location-title i {
+  color: var(--red-primary);
+  font-size: 1.1rem;
+}
+
+.footer-location address {
+  font-style: normal;
+  font-size: var(--fs-sm);
+  color: var(--gray-500);
+  line-height: 1.6;
+  margin-bottom: 0.75rem;
+}
+
+.footer-location-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--gray-400, #888);
+  transition: color 0.2s, gap 0.2s;
+}
+
+.footer-location-link i {
+  color: var(--red-primary);
+  font-size: 1rem;
+}
+
+.footer-location-link:hover {
+  color: var(--white);
+  gap: 0.65rem;
+}
 
 .footer-social {
   display: flex;
@@ -1755,7 +1798,7 @@ input, select, textarea { font-family: inherit; }
 }
 
 /* ----------------------------------------------------------------
-   16. ADMINISTRADORAS — CARROSSEL INFINITO
+   16. ADMINISTRADORAS - CARROSSEL INFINITO
 ---------------------------------------------------------------- */
 .administradoras {
   padding-block: var(--section-py);
@@ -1823,7 +1866,7 @@ input, select, textarea { font-family: inherit; }
   filter: drop-shadow(0 2px 6px rgba(0,0,0,0.15));
 }
 
-/* Logo real — altura uniforme, proporção preservada */
+/* Logo real - altura uniforme, proporção preservada */
 .brand-img {
   height: 44px;
   width: auto;
@@ -1873,7 +1916,7 @@ input, select, textarea { font-family: inherit; }
 .adm-disclaimer i { color: var(--gray-400); font-size: 1rem; }
 
 /* ----------------------------------------------------------------
-   17. MODALIDADES — CARDS
+   17. MODALIDADES - CARDS
 ---------------------------------------------------------------- */
 .modalidades {
   padding-block: var(--section-py);
@@ -2069,7 +2112,7 @@ input, select, textarea { font-family: inherit; }
 }
 
 /* ----------------------------------------------------------------
-   19. DIFERENCIAIS — POR QUE ME ESCOLHER
+   19. DIFERENCIAIS - POR QUE ME ESCOLHER
 ---------------------------------------------------------------- */
 .diferenciais {
   padding-block: var(--section-py);
@@ -2139,7 +2182,7 @@ input, select, textarea { font-family: inherit; }
 }
 
 /* ----------------------------------------------------------------
-   20. FORMULÁRIO — MELHORIAS
+   20. FORMULÁRIO - MELHORIAS
 ---------------------------------------------------------------- */
 .sim-badges {
   display: grid;
@@ -2186,7 +2229,7 @@ input, select, textarea { font-family: inherit; }
 .form-header-trust i { font-size: 1rem; }
 
 /* ----------------------------------------------------------------
-   21. FINAL CTA — MELHORADO
+   21. FINAL CTA - MELHORADO
 ---------------------------------------------------------------- */
 .final-cta {
   padding-block: var(--section-py);
@@ -2270,7 +2313,7 @@ input, select, textarea { font-family: inherit; }
 .final-cta-trust span i { color: rgba(255,255,255,0.4); font-size: 0.9rem; }
 
 /* ----------------------------------------------------------------
-   22. RESPONSIVE — NOVAS SEÇÕES
+   22. RESPONSIVE - NOVAS SEÇÕES
 ---------------------------------------------------------------- */
 @media (max-width: 900px) {
   .consultoria-inner {
@@ -2317,7 +2360,7 @@ input, select, textarea { font-family: inherit; }
 }
 
 /* ----------------------------------------------------------------
-   23. ACESSIBILIDADE — reduced motion
+   23. ACESSIBILIDADE - reduced motion
 ---------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
@@ -2335,5 +2378,49 @@ input, select, textarea { font-family: inherit; }
 
   .brands-track {
     animation: none;
+  }
+}
+
+/* ----------------------------------------------------------------
+   24. VÍDEOS - PROVA SOCIAL
+---------------------------------------------------------------- */
+.videos-prova {
+  padding-block: var(--section-py);
+  background: var(--off-white);
+}
+
+.grid-videos {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  max-width: 720px;
+  margin-inline: auto;
+}
+
+.video-card {
+  background: var(--gray-900);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  transition: transform 0.3s var(--ease), box-shadow 0.3s;
+}
+
+.video-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.video-card video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  object-fit: cover;
+  background: #000;
+}
+
+@media (max-width: 768px) {
+  .grid-videos {
+    grid-template-columns: 1fr;
+    max-width: 340px;
   }
 }

@@ -1,5 +1,5 @@
 /**
- * HONÓRIO — CONSULTOR MULTIMARCAS — script.js
+ * HONÓRIO - CONSULTOR MULTIMARCAS - script.js
  * Vanilla JS | WhatsApp Lead Form | Intersection Observer | Tracking
  */
 
@@ -9,11 +9,21 @@
    0. CONFIGURAÇÕES GLOBAIS
 ================================================================ */
 const CONFIG = {
-  /* Número oficial do consultor — DDI + DDD + número */
+  /* Número oficial do consultor - DDI + DDD + número */
   whatsappNumber: '5527996456687',
 
   /* Threshold do Intersection Observer */
   revealThreshold: 0.15,
+
+  /* EmailJS - garante que o lead chegue por e-mail mesmo se o cliente
+     fechar a aba antes de continuar no WhatsApp.
+     Criar conta gratuita em https://www.emailjs.com/, cadastrar um
+     serviço de e-mail e um template, e preencher os 3 valores abaixo. */
+  emailjs: {
+    publicKey: 'THobKo_9hq38mzwvc',
+    serviceId: 'service_tmgw0io',
+    templateId: 'template_n4ihzmg',
+  },
 };
 
 /* ================================================================
@@ -28,7 +38,7 @@ const on = (target, event, handler, signal, opts = {}) => {
 };
 
 /* ================================================================
-   2. EVENTOS DE CONVERSÃO — TRACKING
+   2. EVENTOS DE CONVERSÃO - TRACKING
    -----------------------------------------------------------------
    Para ativar o rastreamento:
    - Google Analytics 4: substitua 'G-XXXXXXXXXX' pelo seu Measurement ID
@@ -89,7 +99,7 @@ function trackFormSubmit(data = {}) {
 }
 
 /* ================================================================
-   3. HEADER — SCROLL BEHAVIOUR
+   3. HEADER - SCROLL BEHAVIOUR
 ================================================================ */
 function initHeader() {
   const header = $('#site-header');
@@ -102,7 +112,7 @@ function initHeader() {
 }
 
 /* ================================================================
-   4. MENU MOBILE — HAMBURGER
+   4. MENU MOBILE - HAMBURGER
 ================================================================ */
 function initMobileNav() {
   const toggle = $('#nav-toggle');
@@ -135,7 +145,7 @@ function initMobileNav() {
 }
 
 /* ================================================================
-   5. SCROLL REVEAL — INTERSECTION OBSERVER
+   5. SCROLL REVEAL - INTERSECTION OBSERVER
 ================================================================ */
 function initScrollReveal() {
   const elements = $$('.reveal-up, .reveal-left, .reveal-right');
@@ -160,7 +170,7 @@ function initScrollReveal() {
 }
 
 /* ================================================================
-   6. FAQ — ACCORDION
+   6. FAQ - ACCORDION
 ================================================================ */
 function initAccordion() {
   const items = $$('.faq-item');
@@ -176,7 +186,29 @@ function initAccordion() {
 }
 
 /* ================================================================
-   7. FORMULÁRIO DE LEAD — VALIDAÇÃO + WHATSAPP DIRETO
+   6b. EMAILJS - BACKUP DE LEAD POR E-MAIL
+   -----------------------------------------------------------------
+   Garante que o lead não se perca caso o cliente feche a aba antes
+   de continuar no WhatsApp. Precisa de conta gratuita configurada
+   em CONFIG.emailjs (ver comentário no topo do arquivo).
+================================================================ */
+function initEmailJS() {
+  const { publicKey } = CONFIG.emailjs;
+  if (!window.emailjs || !publicKey || publicKey.startsWith('SUBSTITUIR')) return;
+  window.emailjs.init({ publicKey });
+}
+
+function sendLeadEmail(data) {
+  const { serviceId, templateId, publicKey } = CONFIG.emailjs;
+  if (!window.emailjs || !publicKey || publicKey.startsWith('SUBSTITUIR')) return;
+
+  window.emailjs.send(serviceId, templateId, data).catch((err) => {
+    console.error('Falha ao enviar backup do lead por e-mail:', err);
+  });
+}
+
+/* ================================================================
+   7. FORMULÁRIO DE LEAD - VALIDAÇÃO + WHATSAPP DIRETO
 ================================================================ */
 function initLeadForm() {
   const form       = $('#lead-form');
@@ -242,7 +274,7 @@ function initLeadForm() {
     radio.addEventListener('change', () => validateRadioGroup('horario'));
   });
 
-  /* ---- Submit — monta mensagem e abre WhatsApp ---- */
+  /* ---- Submit - monta mensagem e abre WhatsApp ---- */
   form.addEventListener('submit', (e) => {
     e.preventDefault();
 
@@ -267,6 +299,9 @@ function initLeadForm() {
     /* Tracking */
     trackFormSubmit({ objetivo, faixa });
     trackWhatsAppClick('form');
+
+    /* Backup do lead por e-mail (não bloqueia o fluxo do WhatsApp) */
+    sendLeadEmail({ nome, telefone, objetivo, faixa, horario });
 
     /* Monta mensagem formatada */
     const mensagem =
@@ -312,7 +347,7 @@ function initLeadForm() {
 }
 
 /* ================================================================
-   8. WHATSAPP LINKS — tracking nos botões externos ao form
+   8. WHATSAPP LINKS - tracking nos botões externos ao form
 ================================================================ */
 function initWhatsAppLinks() {
   $$('a[href*="wa.me"]').forEach(link => {
@@ -332,7 +367,7 @@ function initWhatsAppLinks() {
 }
 
 /* ================================================================
-   8b. WHATSAPP WIDGET — chat card flutuante
+   8b. WHATSAPP WIDGET - chat card flutuante
 ================================================================ */
 function initWhatsAppWidget() {
   const widget  = $('#wa-widget');
@@ -366,10 +401,16 @@ function initWhatsAppWidget() {
     if (e.key === 'Escape' && isOpen) closeCard();
   });
 
-  /* Auto-abre uma vez após 4 s (só na primeira visita da sessão) */
+  /* Auto-abre uma vez após 4 s (só na primeira visita da sessão).
+     Não abre se o usuário já estiver vendo o formulário de simulação,
+     pra não sobrepor o botão de enviar no pior momento possível. */
   if (!sessionStorage.getItem('wa_widget_shown')) {
     setTimeout(() => {
-      if (!isOpen) {
+      const simSection = $('#simulacao');
+      const rect = simSection?.getBoundingClientRect();
+      const simVisible = rect && rect.top < window.innerHeight && rect.bottom > 0;
+
+      if (!isOpen && !simVisible) {
         openCard();
         sessionStorage.setItem('wa_widget_shown', '1');
       }
@@ -398,7 +439,7 @@ function initSmoothScroll() {
 }
 
 /* ================================================================
-   10. FOOTER — Ano dinâmico
+   10. FOOTER - Ano dinâmico
 ================================================================ */
 function initFooterYear() {
   const el = $('#footer-year');
@@ -406,7 +447,7 @@ function initFooterYear() {
 }
 
 /* ================================================================
-   11. BRANDS CAROUSEL — pausa no touch
+   11. BRANDS CAROUSEL - pausa no touch
 ================================================================ */
 function initBrandsCarousel() {
   const track = document.querySelector('.brands-track');
@@ -423,7 +464,7 @@ function initBrandsCarousel() {
 }
 
 /* ================================================================
-   12. MICROINTERAÇÕES — delay escalonado nos cards
+   12. MICROINTERAÇÕES - delay escalonado nos cards
 ================================================================ */
 function initEntryAnimations() {
   document.querySelectorAll('.mod-card, .dif-card, .glass-card').forEach((card, i) => {
@@ -438,6 +479,7 @@ function initEntryAnimations() {
    13. INIT
 ================================================================ */
 document.addEventListener('DOMContentLoaded', () => {
+  initEmailJS();
   initHeader();
   initMobileNav();
   initEntryAnimations();

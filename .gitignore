@@ -11,3 +11,9 @@ desktop.ini
 
 # Logs
 *.log
+
+# Vídeos brutos originais (não otimizados) - usar apenas videos/web/
+videos/*.MP4
+videos/*.MOV
+videos/*.mp4
+videos/*.mov

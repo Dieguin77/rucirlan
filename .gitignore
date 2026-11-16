@@ -17,3 +17,5 @@ videos/*.MP4
 videos/*.MOV
 videos/*.mp4
 videos/*.mov
+
+.vercel

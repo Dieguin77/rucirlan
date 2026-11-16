@@ -1,0 +1,14 @@
+# A Vercel não usa o .gitignore: só o que estiver listado aqui deixa de ser enviado no deploy.
+
+# Configuração do Claude Code (caminhos e comandos do PC de desenvolvimento)
+.claude
+
+# Arquivos de trabalho que o site não usa
+README.md
+pdf.ruci
+
+# Vídeos brutos originais; o site usa só os otimizados de videos/web/
+videos/*.MP4
+videos/*.MOV
+videos/*.mp4
+videos/*.mov
